@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import confetti from "canvas-confetti";
 
 function App() {
   const [fallingCaps, popCaps] = useState<{ id: string; src: string; left: number; top: number; duration: number }[]>([]);
-
+  const [showNote, setShowNote] = useState(false);
   const images = [
     '/images/bday.jpeg',
     '/images/din.jpeg',
@@ -74,12 +75,24 @@ function App() {
           we have a lot planned for the weekend so get ready for the best birthday ever!
         </p>
 
-        <button
-            onClick={poppingCapybaras}
-            className="mt-6 px-4 py-2 bg-[#97d0ff] rounded text-white hover:bg-[#7bb7ff]"
-          >click for surprise :D
-        </button>
-        
+        <div className="flex gap-4 mt-6">
+          <button
+              onClick={() => { poppingCapybaras(); confetti(); }}
+              className="mt-6 px-4 py-2 bg-[#97d0ff] rounded text-white hover:bg-[#7bb7ff]">
+                click for surprise :D
+          </button>
+
+          <button onClick={() => { setShowNote(!showNote); confetti(); }} className="mt-6 px-4 py-2 bg-[#97d0ff] rounded text-white hover:bg-[#7bb7ff]">
+            {showNote ? "Hide" : "💌"}
+          </button>
+        </div>
+
+        {showNote && (
+          <div className="mt-4 bg-white p-4 rounded text-gray-800 border-l-4 border-[#f28a88]">
+            You make every day better than the last. Thank you for being my best friend and favorite person. I can't wait to keep making more memories with you.
+          </div>
+        )}
+
         <div className="mt-auto w-full overflow-x-auto bg-[#f28a88]">
           <div className="flex scroll">
             {images.concat(images).map((src, index) => (
