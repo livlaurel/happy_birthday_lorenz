@@ -14,3 +14,31 @@
   animation: scroll 20s linear infinite;
   width: calc(255%);
 }
+
+@keyframes popup {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+.popping-capybara {
+  position: fixed;
+  width: 50px;
+  pointer-events: none;
+  animation-name: popup;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  animation-duration: 1.5s;
+  z-index: 9999;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}

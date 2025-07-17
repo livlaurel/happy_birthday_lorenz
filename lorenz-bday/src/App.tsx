@@ -1,4 +1,8 @@
+import React, { useState } from "react";
+
 function App() {
+  const [fallingCaps, popCaps] = useState<{ id: string; src: string; left: number; top: number; duration: number }[]>([]);
+
   const images = [
     '/images/bday.jpeg',
     '/images/din.jpeg',
@@ -17,7 +21,43 @@ function App() {
     '/images/npm.jpeg',
   ]; 
 
+  const capybaraImages = [
+    '/images/cap.jpeg',
+    '/images/capyyy.jpg',
+    '/images/cap.jpg',
+  ];
+  
+  const poppingCapybaras = () => {
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        const newCap = {
+          id: Math.random().toString(36).substr(2, 9),
+          src: capybaraImages[Math.floor(Math.random() * capybaraImages.length)],
+          left: Math.random() * window.innerWidth,
+          top: Math.random() * window.innerHeight,
+          duration: 1500,
+        };
+        popCaps((prev) => [...prev, newCap]);
+
+        setTimeout(() => {
+          popCaps((prev) => prev.filter((c) => c.id !== newCap.id));
+        }, 1500);
+      }, i * 150);
+    }
+  };
+
   return (
+    <>
+      {fallingCaps.map(({ id, src, left, top }) => (
+        <img
+          key={id}
+          src={src}
+          alt="popping capybara"
+          className="popping-capybara"
+          style={{ left: left + "px", top: top + "px" }}
+        />
+      ))}
+
     <div className="flex min-h-screen bg-[#fffcf7]">
       <div className="bg-[#97d0ff] w-2/5 flex justify-center items-center">
         <img src="/images/cmas.jpeg" className="w-[90%] h-auto border-4 border-[#fffcf7] rounded-xl shadow-lg" />
@@ -33,6 +73,12 @@ function App() {
           i am so in love with you and i hope you enjoy all your gifts!<br />
           we have a lot planned for the weekend so get ready for the best birthday ever!
         </p>
+
+        <button
+            onClick={poppingCapybaras}
+            className="mt-6 px-4 py-2 bg-[#97d0ff] rounded text-white hover:bg-[#7bb7ff]"
+          >click for surprise :D
+        </button>
         
         <div className="mt-auto w-full overflow-x-auto bg-[#f28a88]">
           <div className="flex scroll">
@@ -48,6 +94,7 @@ function App() {
         </div>
       </div>
     </div>
+  </>
   );
 }
 
