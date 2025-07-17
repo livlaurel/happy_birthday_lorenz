@@ -93,7 +93,7 @@ function App() {
           </div>
         )}
 
-        <div className="mt-auto w-full overflow-x-auto bg-[#f28a88]">
+        <div className="mt-auto w-full rounded overflow-x-auto bg-[#f28a88]">
           <div className="flex scroll">
             {images.concat(images).map((src, index) => (
               <img
